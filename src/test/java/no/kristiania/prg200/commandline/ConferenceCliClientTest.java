@@ -17,7 +17,9 @@ public class ConferenceCliClientTest {
     public void shouldDecodeAddCommand() {
         String title = SampleData.sampleText(5);
         String description = SampleData.sampleText(10);
-        ConferenceClientCommand command = client.decodeCommand(new String[] { "add", "-title", title, "-description", description });
+        ConferenceClientCommand command = client.decodeCommand(new String[] { 
+        		"add", "-title", title, "-description", description 
+        		});
         assertThat(command).isInstanceOf(AddTalkCommand.class)
             .isEqualToComparingFieldByField(new AddTalkCommand().withTitle(title).withDescription(description));
     }

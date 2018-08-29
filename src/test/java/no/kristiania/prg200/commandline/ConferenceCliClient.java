@@ -4,9 +4,18 @@ public class ConferenceCliClient {
 
 
 
-	public AddTalkCommand decodeCommand(String[] strings) {
+	public ConferenceClientCommand decodeCommand(String[] strings) {
 		// TODO Auto-generated method stub
-		return new AddTalkCommand();
+		AddTalkCommand command = new AddTalkCommand();
+		
+		for (int i = 0; i < strings.length; i++) {
+			if(strings[i].equals("-title")) {
+				command.withTitle(strings[i+1]);
+			} else if (strings[i].equals("-description")) {
+				command.withDescription(strings[i + 1]);
+			}
+		}
+		return command;
 	}
-
+	
 }
