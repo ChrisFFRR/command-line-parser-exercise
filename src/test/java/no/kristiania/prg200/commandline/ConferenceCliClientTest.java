@@ -15,13 +15,17 @@ public class ConferenceCliClientTest {
 
     @Test
     public void shouldDecodeAddCommand() {
+    	String topic = SampleData.sampleTopic();
         String title = SampleData.sampleText(5);
         String description = SampleData.sampleText(10);
-        ConferenceClientCommand command = client.decodeCommand(new String[] { 
-        		"add", "-title", title, "-description", description 
+		ConferenceClientCommand command = client.decodeCommand(new String[] { 
+        		"add",
+        		"-topic", topic,
+        		"-title", title,
+        		"-description", description
         		});
-        assertThat(command).isInstanceOf(AddTalkCommand.class)
-            .isEqualToComparingFieldByField(new AddTalkCommand().withTitle(title).withDescription(description));
+        AddTalkCommand expectedCommand = new AddTalkCommand().withTopic(topic).withTitle(title).withDescription(description);
+		assertThat(command).isInstanceOf(AddTalkCommand.class)
+		.isEqualToComparingFieldByField(expectedCommand);
     }
-
 }

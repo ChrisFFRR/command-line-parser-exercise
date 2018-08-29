@@ -13,6 +13,8 @@ public class ConferenceCliClient {
 				command.withTitle(strings[i+1]);
 			} else if (strings[i].equals("-description")) {
 				command.withDescription(strings[i + 1]);
+			} else if(strings[i].equals("-topic")) {
+				command.withTopic(strings[i+1]);
 			}
 		}
 		return command;
