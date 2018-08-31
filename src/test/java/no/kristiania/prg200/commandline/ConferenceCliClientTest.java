@@ -28,4 +28,17 @@ public class ConferenceCliClientTest {
 		assertThat(command).isInstanceOf(AddTalkCommand.class)
 		.isEqualToComparingFieldByField(expectedCommand);
     }
-}
+    
+    @Test 
+    public void shouldDecodeListCommand() {
+    	String list = SampleData.sampleListTalk();
+    	
+    	ConferenceClientCommand command = client.decodeCommand(new String[] {
+    			"list", list
+    			});
+    	AddTalkCommand expectedCommand = new AddTalkCommand().withList(list);
+    	assertThat(command).isInstanceOf(AddTalkCommand.class)
+    	.isEqualToComparingFieldByField(expectedCommand);
+    	}
+    	
+ }

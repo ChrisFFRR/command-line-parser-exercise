@@ -1,5 +1,6 @@
 package no.kristiania.prg200.commandline;
 
+import java.util.Iterator;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -24,5 +25,16 @@ public class SampleData {
     public static String sampleTopic() {
         return pickOne(new String[] { "testing", "java", "sockets", "jdbc", "database" });
     }
-
+    
+    //Sampledata for list of multiple talks
+    public static String sampleListTalk() {
+    	String[] talkList = {"talk1", "talk2", "talk3", "talk4", "talk5"};
+    	for (int i = 0; i < talkList.length;) {
+    		System.out.println(talkList[i]);
+    		return talkList[i];
+			
+		}
+    	return null;
+   	}
 }
+ 
