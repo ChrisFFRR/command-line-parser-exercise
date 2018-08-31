@@ -1,5 +1,6 @@
 package no.kristiania.prg200.commandline;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -21,20 +22,32 @@ public class SampleData {
     public static String pickOne(String[] alternatives) {
         return alternatives[random.nextInt(alternatives.length)];
     }
+    
+    public static ArrayList<String> pickAll(String[] alternatives) {
+    	ArrayList<String> topics = new ArrayList<>();
+    	
+    	for (int i = 0; i < alternatives.length; i++) {
+    		topics.add(alternatives[i]);
+		}
+    	return topics;
+    	
+    }
+  
 
     public static String sampleTopic() {
         return pickOne(new String[] { "testing", "java", "sockets", "jdbc", "database" });
     }
     
-    //Sampledata for list of multiple talks
-    public static String sampleListTalk() {
-    	String[] talkList = {"talk1", "talk2", "talk3", "talk4", "talk5"};
-    	for (int i = 0; i < talkList.length;) {
-    		System.out.println(talkList[i]);
-    		return talkList[i];
-			
-		}
-    	return null;
+    
+    /*
+     * 
+      Sampledata for list of multiple talks
+      Usikker på om riktig framgansmåte...
+     
+    
+    public static ArrayList<String> sampleListTalk() {
+    	return pickAll(new String[] {"testing","java","sockets","jdbc","database" });
    	}
+   	*/
 }
  

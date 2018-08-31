@@ -90,6 +90,7 @@ $ java -jar target/conference-server-0.1-SNAPSHOT.jar list
 fd4d2022-fead-4003-ac21-a0595a360137    A Talk About Java
 aeebffda-f3e9-4d55-a80e-3398345d62a3    Another Talk About Java
 9508e602-5988-46c6-a79c-b5606d78cde6    My Talk on CURL
+9508e602-5988-46c6-a79c-b5606d78cde6    My Talk on CURL
 
 $ java -jar target/conference-server-0.1-SNAPSHOT.jar list -topic Java
 200

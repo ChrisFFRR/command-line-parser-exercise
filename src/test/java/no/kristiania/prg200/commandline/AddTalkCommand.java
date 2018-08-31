@@ -8,7 +8,6 @@ public class AddTalkCommand implements ConferenceClientCommand {
 	private String title;
 	private String description;
 	private String topic;
-	private ArrayList<String> listTalk = new ArrayList<String>();
 
 	public AddTalkCommand withTitle(String title) {
 		this.title = title;
@@ -24,12 +23,5 @@ public class AddTalkCommand implements ConferenceClientCommand {
 		this.topic = topic;
 		// TODO Auto-generated method stub
 		return this;
-	}
-	
-	public AddTalkCommand withList(String listTalk) {
-		this.listTalk.add(listTalk);
-
-		return this;
-		
 	}
 }

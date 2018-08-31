@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -25,19 +26,23 @@ public class ConferenceCliClientTest {
         		"-description", description
         		});
         AddTalkCommand expectedCommand = new AddTalkCommand().withTopic(topic).withTitle(title).withDescription(description);
-		assertThat(command).isInstanceOf(AddTalkCommand.class)
+		assertThat(command)
+		.isInstanceOf(AddTalkCommand.class)
 		.isEqualToComparingFieldByField(expectedCommand);
     }
     
+    
     @Test 
     public void shouldDecodeListCommand() {
-    	String list = SampleData.sampleListTalk();
+    	String topic = SampleData.sampleTopic();
     	
     	ConferenceClientCommand command = client.decodeCommand(new String[] {
-    			"list", list
+    			"list","-topic", topic
     			});
-    	AddTalkCommand expectedCommand = new AddTalkCommand().withList(list);
-    	assertThat(command).isInstanceOf(AddTalkCommand.class)
+    	ListTalksCommand expectedCommand = new ListTalksCommand().withTopic(topic);
+    	
+    	assertThat(command)
+    	.isInstanceOf(ListTalksCommand.class)
     	.isEqualToComparingFieldByField(expectedCommand);
     	}
     	
