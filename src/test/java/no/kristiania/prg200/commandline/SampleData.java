@@ -1,7 +1,6 @@
 package no.kristiania.prg200.commandline;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

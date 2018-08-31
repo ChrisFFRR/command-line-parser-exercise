@@ -1,6 +1,7 @@
 package no.kristiania.prg200.commandline;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.LocalDate;
@@ -36,7 +37,7 @@ public class ConferenceCliClientTest {
     public void shouldDecodeListCommand() {
     	String topic = SampleData.sampleTopic();
     	
-    	ConferenceClientCommand command = client.decodeCommand(new String[] {
+    	ConferenceClientCommand command = client.decodeListCommand(new String[] {
     			"list","-topic", topic
     			});
     	ListTalksCommand expectedCommand = new ListTalksCommand().withTopic(topic);
