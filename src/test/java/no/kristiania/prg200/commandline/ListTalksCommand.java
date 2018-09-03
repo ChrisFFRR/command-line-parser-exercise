@@ -18,6 +18,11 @@ public class ListTalksCommand implements ConferenceClientCommand{
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
+
+	public ListTalksCommand getAllTalks() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

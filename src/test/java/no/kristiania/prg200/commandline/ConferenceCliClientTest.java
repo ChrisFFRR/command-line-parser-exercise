@@ -28,7 +28,8 @@ public class ConferenceCliClientTest {
         		"-description", description
         		});
         AddTalkCommand expectedCommand = new AddTalkCommand().withTitle(title).withDescription(description).withTopic(topic);
-		assertThat(command)
+		
+        assertThat(command)
 		.isInstanceOf(AddTalkCommand.class)
 		.isEqualToComparingFieldByField(expectedCommand);
     }
@@ -61,6 +62,7 @@ public class ConferenceCliClientTest {
     		});
     	
     	AddTalkCommand expectedCommand = new AddTalkCommand().withTitle(title).withDescription(description).withTopic(topic);
+    	
     	assertThat(command)
     	.isInstanceOfAny(AddTalkCommand.class)
     	.isEqualToComparingFieldByField(expectedCommand);
