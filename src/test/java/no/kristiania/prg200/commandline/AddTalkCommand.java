@@ -6,6 +6,7 @@ public class AddTalkCommand implements ConferenceClientCommand {
 	private String description;
 	private String topic;
 
+
 	public AddTalkCommand withTitle(String title) {
 		this.setTitle(title);
 		// TODO Auto-generated method stub
@@ -39,4 +40,6 @@ public class AddTalkCommand implements ConferenceClientCommand {
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
+	
+	
 }
