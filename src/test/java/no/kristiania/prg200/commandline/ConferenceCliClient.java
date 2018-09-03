@@ -1,13 +1,13 @@
 package no.kristiania.prg200.commandline;
 
+import java.awt.List;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ConferenceCliClient {
 
 
-/*
- * Skal ListTalksCommand implementeres i decodeCommand, eller egen funksjon?
- */
+
 	public ConferenceClientCommand decodeCommand(String[] strings) throws IOException {
 		// TODO Auto-generated method stub
 		
@@ -16,7 +16,7 @@ public class ConferenceCliClient {
 		case "add":
 			return constructAddCommand(strings);
 		case "list":
-			return constructListCommand(strings);
+			return constructListCommand();
 		case "remove":
 			return constructUpdateCommand(strings);
 		default:
@@ -58,15 +58,14 @@ public class ConferenceCliClient {
 	}
 	
 	private ConferenceClientCommand constructUpdateCommand(String[] strings) {
-	// TODO Auto-generated method stub
 	return null;
 }
 
-	private ListTalksCommand constructListCommand(String[] strings) {
-		String list = "";
+	private ListTalksCommand constructListCommand() {
 		
-		return null;
-}
+		return new ListTalksCommand().getAllTalks();
+	}
+			
 
 	public AddTalkCommand constructAddCommand(String[] strings) {
 		String title = getArgument("-title", strings, "unknown");

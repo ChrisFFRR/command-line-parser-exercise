@@ -36,7 +36,7 @@ public class ConferenceCliClientTest {
     
     
     @Test 
-    public void shouldDecodeListCommand() throws IOException {
+    public void shouldDecodeListWithTopicCommand() throws IOException {
     	String topic = SampleData.sampleTopic();
     	
     	ConferenceClientCommand command = client.decodeCommand(new String[] {
