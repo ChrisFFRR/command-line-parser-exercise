@@ -16,7 +16,7 @@ public class ConferenceCliClient {
 		case "add":
 			return constructAddCommand(strings);
 		case "list":
-			return constructListCommand();
+			return constructListCommand(strings);
 		case "remove":
 			return constructUpdateCommand(strings);
 		default:
@@ -61,9 +61,13 @@ public class ConferenceCliClient {
 	return null;
 }
 
-	private ListTalksCommand constructListCommand() {
-		
-		return new ListTalksCommand().getAllTalks();
+	private ListTalksCommand constructListCommand(String[] strings) {
+		String[] input = strings;
+		String topic = getArgument("-topic", strings, "unknown");
+		if(input[1].equals("-topic")) {	
+		return new ListTalksCommand().withTopic(topic);
+		}
+		return new ListTalksCommand();
 	}
 			
 

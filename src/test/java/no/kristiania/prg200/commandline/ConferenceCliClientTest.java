@@ -34,21 +34,6 @@ public class ConferenceCliClientTest {
 		.isEqualToComparingFieldByField(expectedCommand);
     }
     
-    
-    @Test 
-    public void shouldDecodeListWithTopicCommand() throws IOException {
-    	String topic = SampleData.sampleTopic();
-    	
-    	ConferenceClientCommand command = client.decodeCommand(new String[] {
-    			"list","-topic", topic
-    			});
-    	ListTalksCommand expectedCommand = new ListTalksCommand().withTopic(topic);
-    	
-    	assertThat(command)
-    	.isInstanceOf(ListTalksCommand.class)
-    	.isEqualToComparingFieldByField(expectedCommand);
-    	}
-    
     @Test
     public void ShouldReturnTitleAndDescriptionAndTopic() {
     	String title = SampleData.sampleText(3);
@@ -67,5 +52,18 @@ public class ConferenceCliClientTest {
     	.isInstanceOfAny(AddTalkCommand.class)
     	.isEqualToComparingFieldByField(expectedCommand);
     }
+    //Incomplete
+    @Test 
+    public void shouldDecodeListWithTopicCommand() throws IOException {
+    	String topic = SampleData.sampleTopic();
     	
+    	ConferenceClientCommand command = client.decodeCommand(new String[] {
+    			"list","-topic", topic
+    	});
+    	ListTalksCommand expectedCommand = new ListTalksCommand().withTopic(topic);
+    	
+    	assertThat(command)
+    	.isInstanceOf(ListTalksCommand.class)
+    	.isEqualToComparingFieldByField(expectedCommand);
+    }
  }
