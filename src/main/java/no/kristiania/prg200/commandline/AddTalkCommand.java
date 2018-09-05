@@ -41,5 +41,15 @@ public class AddTalkCommand implements ConferenceClientCommand {
 		this.topic = topic;
 	}
 	
+	public void readArguments(String[] args) {
+		withTitle(getArgument(args, "-title"));
+		withDescription(getArgument(args, "-description"));
+		withTopic(getArgument(args, "-topic"));
+	}
+	
+	public String toString() {
+		return "Title: " + this.title + "\n" + "Description: " + this.description + "\n" + "Topic: " + this.topic;
+	}
+	
 	
 }

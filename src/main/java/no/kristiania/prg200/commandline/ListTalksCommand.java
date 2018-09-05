@@ -18,4 +18,8 @@ public class ListTalksCommand implements ConferenceClientCommand{
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
+
+	public void readArguments(String[] args) {
+		setTopic(getArgument(args, "-topic"));
+	}
 }

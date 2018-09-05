@@ -18,17 +18,15 @@ public class ConferenceCliClientTest {
     private ConferenceCliClient client = new ConferenceCliClient();
 
     @Test
-    public void shouldDecodeAddCommand() throws IOException {
-    	String topic = SampleData.sampleTopic();
+    public void shouldDecodeAddCommand() {
         String title = SampleData.sampleText(5);
         String description = SampleData.sampleText(10);
 		ConferenceClientCommand command = client.decodeCommand(new String[] { 
         		"add",
-        		"-topic", topic,
         		"-title", title,
         		"-description", description
         		});
-        AddTalkCommand expectedCommand = new AddTalkCommand().withTitle(title).withDescription(description).withTopic(topic);
+        AddTalkCommand expectedCommand = new AddTalkCommand().withTitle(title).withDescription(description);
 		
         assertThat(command)
         .isInstanceOf(AddTalkCommand.class)
@@ -36,18 +34,19 @@ public class ConferenceCliClientTest {
     }
     
     @Test
-    public void ShouldReturnTitleAndDescriptionAndTopic() {
+    public void ShouldDecodeAddCommandWithTopic() {
     	String title = SampleData.sampleText(3);
     	String description = SampleData.sampleText(5);
     	String topic = SampleData.sampleTopic();
     	
-    	ConferenceClientCommand command = client.constructAddCommand(new String[] {    		
+    	ConferenceClientCommand command = client.decodeCommand(new String[] {    	
+    		"add",
     		"-title", title,
     		"-description", description,
     		"-topic", topic
     		});
     	
-    	AddTalkCommand expectedCommand = new AddTalkCommand().withTitle(title).withDescription(description).withTopic(topic);
+    	AddTalkCommand expectedCommand = new AddTalkCommand().withTitle(title).withTopic(topic).withDescription(description);
     	
     	assertThat(command)
     	.isInstanceOfAny(AddTalkCommand.class)
@@ -55,14 +54,17 @@ public class ConferenceCliClientTest {
     }
     //Incomplete
     @Test 
-    public void shouldDecodeListWithTopicCommand() throws IOException {
+    public void shouldDecodeListCommandWithTopic() throws IOException {
+    	String title = SampleData.sampleText(5);
+    	String description = SampleData.sampleText(10);
     	String topic = SampleData.sampleTopic();
     	
     	ConferenceClientCommand command = client.decodeCommand(new String[] {
-    			"list","-topic", topic
+    			"list",
+    			"-topic", topic
     	});
-    	ListTalksCommand expectedCommand = new ListTalksCommand().withTopic(topic);
-    	
+    	ListTalksCommand expectedCommand = new ListTalksCommand();
+    	expectedCommand.withTopic(topic);
     	assertThat(command)
     	.isInstanceOf(ListTalksCommand.class)
     	.isEqualToComparingFieldByField(expectedCommand);
