@@ -1,4 +1,4 @@
-package no.kristiania.prg200.commandline;
+package no.kristiania.prg200.commandline.client;
 
 import java.awt.List;
 import java.io.IOException;

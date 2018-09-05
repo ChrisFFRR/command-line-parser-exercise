@@ -1,4 +1,4 @@
-package no.kristiania.prg200.commandline;
+package no.kristiania.prg200.commandline.client;
 
 public class AddTalkCommand implements ConferenceClientCommand {
 
