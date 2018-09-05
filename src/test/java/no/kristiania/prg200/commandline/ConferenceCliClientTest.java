@@ -1,13 +1,9 @@
 package no.kristiania.prg200.commandline;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.UUID;
 
 import org.junit.Test;
 
@@ -30,7 +26,7 @@ public class ConferenceCliClientTest {
         AddTalkCommand expectedCommand = new AddTalkCommand().withTitle(title).withDescription(description).withTopic(topic);
 		
         assertThat(command)
-		.isInstanceOf(AddTalkCommand.class)
+        .isInstanceOf(AddTalkCommand.class)
 		.isEqualToComparingFieldByField(expectedCommand);
     }
     
