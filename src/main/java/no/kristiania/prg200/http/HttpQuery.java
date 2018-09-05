@@ -1,9 +1,10 @@
 package no.kristiania.prg200.http;
 
-public class HttpReponse {
+public class HttpQuery {
 
-	public HttpRequest execute() {
+	public String add(String hostname, int port) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

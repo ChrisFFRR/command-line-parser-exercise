@@ -1,50 +1,72 @@
 package no.kristiania.prg200.http;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Socket;
 
-import no.kristiania.prg200.http.HttpReponse;
-import no.kristiania.prg200.http.HttpRequest;
+import org.junit.Test;
 
 
 public class HttpClientTest {
 	
+	
 	@Test
-	public void shouldReadStatusCode() {
-		HttpRequest request = new HttpRequest("urlecho.appspot.com", "/echo?status=200");
-		HttpReponse response = request.execute();
+	public void ShouldexecuteRequest() throws Exception {
+		HttpRequest request = new HttpRequest("http://urlecho.appspot.com", 80, "/echo");
+		HttpResponse response = request.execute();
 		
 		assertThat(response.getStatusCode()).isEqualTo(200);
 	}
 	
-	@
-	Test
-	public void shouldReadOtherStatusCodes() {
-		HttpRequest request = new HttpRequest("urlecho.appspot.com", "/echo?status=200");
-		HttpRequest response = request.execute();
+	@Test
+	public void ShouldReadResponseCode() throws Exception {
+		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?status=404");
+		HttpResponse response = request.execute();
 		
 		assertThat(response.getStatusCode()).isEqualTo(404);
 	}
+	
+	@Test
+	public void ShouldReadBody() throws Exception {
+		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo");
+		HttpResponse response = request.execute();
+		
+		assertThat(response.getBody()).isEqualTo("Hello World!");
+	}
+	/*
+	@Test
+	public void ShouldReadHeaders() throws Exception {
+		HttpQuery query = new HttpQuery()
+				.add("status", 307)
+				.add("location", "http://google.com");
+		http://urlecho.appspot.com/echo?status=307?&Location=http%3A%F%2Fwww.google.com
+		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?" + query);
+		HttpResponse response = request.execute();
+		
+		assertThat(response.getStatusCode()).isEqualTo(200);
+		assertThat(response.getHeader("Location")).isEqualTo("http://google.com");
+	}
+	*/
+	
+	
 
 	public static void main(String[] args) throws IOException {
+		Socket socket = new Socket("urlecho.appspot.com", 80);
 		
-		try(Socket socket = new Socket("urlecho.appspot.com", 80)) {
-		socket.getOutputStream()
-			.write("GET /echo?status=200&body=Hello+World! HTTP/1.1\r\n".getBytes());
-		socket.getOutputStream()
-			.write("Host: urlecho.appspot.com\r\n".getBytes());
-		socket.getOutputStream()
-			.write("Connection: close\r\n".getBytes());
+		socket.getOutputStream().write("GET /echo HTTP/1.1\r\n".getBytes());
+		socket.getOutputStream().write("Host: urlecho.appspot.com\r\n".getBytes());
+		socket.getOutputStream().write("Connection: close\r\n".getBytes());
 		socket.getOutputStream().write("\r\n".getBytes());
 		
-		InputStream input =  socket.getInputStream();
 		
 		int c;
-		while ((c = input.read()) != -1) {
-			System.out.print((char) c);
+		
+		while((c = socket.getInputStream().read()) != -1) {
+			System.out.print((char)c);
 		}
 		socket.close();
 	}
-}
+	
 }
