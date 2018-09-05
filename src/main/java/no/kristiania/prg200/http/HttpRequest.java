@@ -13,6 +13,7 @@ public class HttpRequest {
 	
 	public HttpRequest(String hostname, int port, String path ) throws IOException {
 		this.path = path;
+		this.hostname = hostname;
 		socket = new Socket(hostname, port);
 		outputStream = socket.getOutputStream();
 	}

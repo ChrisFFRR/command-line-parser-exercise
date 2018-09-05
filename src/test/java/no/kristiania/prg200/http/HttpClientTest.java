@@ -13,8 +13,8 @@ public class HttpClientTest {
 	
 	
 	@Test
-	public void ShouldexecuteRequest() throws Exception {
-		HttpRequest request = new HttpRequest("http://urlecho.appspot.com", 80, "/echo");
+	public void ShouldExecuteRequest() throws Exception {
+		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo");
 		HttpResponse response = request.execute();
 		
 		assertThat(response.getStatusCode()).isEqualTo(200);
