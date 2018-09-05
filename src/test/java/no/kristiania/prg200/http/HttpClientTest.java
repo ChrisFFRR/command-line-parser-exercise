@@ -1,11 +1,11 @@
-package no.kristiania.prg200.commandline;
+package no.kristiania.prg200.http;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
-import no.kristiania.prg200.commandline.http.HttpReponse;
-import no.kristiania.prg200.commandline.http.HttpRequest;
+import no.kristiania.prg200.http.HttpReponse;
+import no.kristiania.prg200.http.HttpRequest;
 
 
 public class HttpClientTest {

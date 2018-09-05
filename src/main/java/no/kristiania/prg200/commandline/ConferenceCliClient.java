@@ -1,8 +1,6 @@
-package no.kristiania.prg200.commandline.client;
+package no.kristiania.prg200.commandline;
 
-import java.awt.List;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ConferenceCliClient {
 

@@ -7,10 +7,10 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import no.kristiania.prg200.commandline.client.AddTalkCommand;
-import no.kristiania.prg200.commandline.client.ConferenceCliClient;
-import no.kristiania.prg200.commandline.client.ConferenceClientCommand;
-import no.kristiania.prg200.commandline.client.ListTalksCommand;
+import no.kristiania.prg200.commandline.AddTalkCommand;
+import no.kristiania.prg200.commandline.ConferenceCliClient;
+import no.kristiania.prg200.commandline.ConferenceClientCommand;
+import no.kristiania.prg200.commandline.ListTalksCommand;
 
 
 public class ConferenceCliClientTest {

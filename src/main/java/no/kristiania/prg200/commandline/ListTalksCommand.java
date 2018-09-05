@@ -1,4 +1,4 @@
-package no.kristiania.prg200.commandline.client;
+package no.kristiania.prg200.commandline;
 
 
 
