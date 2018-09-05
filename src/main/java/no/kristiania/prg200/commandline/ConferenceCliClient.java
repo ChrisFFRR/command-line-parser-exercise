@@ -4,10 +4,11 @@ import java.io.IOException;
 
 public class ConferenceCliClient {
 
-
+	private ListTalksCommand talksCommand = new ListTalksCommand();
 
 	public ConferenceClientCommand decodeCommand(String[] strings) throws IOException {
 		// TODO Auto-generated method stub
+	
 		
 		String type = strings[0];
 		switch (type ) {
@@ -20,39 +21,6 @@ public class ConferenceCliClient {
 		default:
 			throw new IOException();
 		}
-		
-		
-		
-		/*AddTalkCommand command = new AddTalkCommand();
-		
-		for (int i = 0; i < strings.length; i++) {
-			if(strings[i].equals("-title")) {
-				command.withTitle(strings[i+1]);
-			} else if (strings[i].equals("-description")) {
-				command.withDescription(strings[i + 1]);
-			} else if(strings[i].equals("-topic")) {
-				command.withTopic(strings[i+1]);
-			}
-		}
-		return command;
-	}
-	
-	public ConferenceClientCommand decodeListCommand(String[] strings) {
-		ListTalksCommand listCommand = new ListTalksCommand();
-		for (int i = 0; i < strings.length; i++) {
-			if(strings[i].equals("-topic")) {
-				listCommand.withTopic(strings[i+1]);
-			}
-		}
-		return listCommand;	
-	}
-	
-	public ConferenceClientCommand listAllTalksByTopic(String topic) {
-		return null;
-		
-	}
-	*/
-	
 	}
 	
 	private ConferenceClientCommand constructUpdateCommand(String[] strings) {
@@ -63,7 +31,7 @@ public class ConferenceCliClient {
 		String[] input = strings;
 		String topic = getArgument("-topic", strings, "unknown");
 		if(input[1].equals("-topic")) {	
-		return new ListTalksCommand().withTopic(topic);
+			return new ListTalksCommand().withTopic(topic);
 		}
 		return new ListTalksCommand();
 	}
@@ -74,7 +42,7 @@ public class ConferenceCliClient {
 		String description = getArgument("-description", strings, "unknown");
 		String topic = getArgument("-topic", strings, "unknown");
 		
-		return new AddTalkCommand().withTitle(title).withDescription(description).withTopic(topic);
+		return talksCommand.add(new AddTalkCommand().withTitle(title).withDescription(description).withTopic(topic));
 		
 	}
 
