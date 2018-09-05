@@ -4,7 +4,6 @@ import java.io.IOException;
 
 public class ConferenceCliClient {
 
-	private ListTalksCommand talksCommand = new ListTalksCommand();
 
 	public ConferenceClientCommand decodeCommand(String[] strings) throws IOException {
 		// TODO Auto-generated method stub
@@ -42,7 +41,7 @@ public class ConferenceCliClient {
 		String description = getArgument("-description", strings, "unknown");
 		String topic = getArgument("-topic", strings, "unknown");
 		
-		return talksCommand.add(new AddTalkCommand().withTitle(title).withDescription(description).withTopic(topic));
+		return new AddTalkCommand().withTitle(title).withDescription(description).withTopic(topic);
 		
 	}
 
