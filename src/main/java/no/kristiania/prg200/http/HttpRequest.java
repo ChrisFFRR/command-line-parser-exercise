@@ -3,24 +3,27 @@ package no.kristiania.prg200.http;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class HttpRequest {
 
 	private String hostname;
-	private int port;
 	private String path;
 	private String method;
 	private Socket socket;
 	private OutputStream outputStream;
-	private Map<String, String> headers;
+	private Map<String, String> headers = new HashMap<>();
 	
 	private String body;
 	
 	
 	public HttpRequest(String hostname, int port, String path) throws IOException {
-		this(hostname, port, path, "GET");
+		//this(hostname, port, path, "GET");
+		this.hostname = hostname;
+		this.path = path;
+		this.method = "GET";
 	
 
 		socket = new Socket(hostname, port);
@@ -28,7 +31,8 @@ public class HttpRequest {
 	}
 	
 	public HttpRequest(String hostname, int port, String path, String method) throws IOException {
-		this.hostname = hostname;
+		//this.hostname = hostname;
+		setRequestHeader("Host", hostname); //red on ShouldPostRequest - if writeLine with host is present
 		this.path = path;
 		this.method = method;
 		socket = new Socket(hostname, port);
@@ -37,10 +41,10 @@ public class HttpRequest {
 
 	public HttpResponse execute() throws IOException {
 		writeLine(method + " " +  path + " HTTP/1.1");
-		writeLine("Host: " + hostname);
+		writeLine("Host: " + hostname); // red on everything beside ShouldPostRequest+ResponseCode if not present.
 		writeLine("Connection: close");
 		
-		//gives nullpointerexception?
+		
 		for(Entry<String, String> entry : headers.entrySet()){
 			writeLine(entry.getKey() + ": " + entry.getValue());
 		}

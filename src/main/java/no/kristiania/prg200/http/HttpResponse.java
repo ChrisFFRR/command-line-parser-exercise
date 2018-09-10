@@ -8,13 +8,13 @@ import java.util.Map;
 public class HttpResponse {
 
 	private int statusCode;
-	private InputStream inputStream;
+	private InputStream input;
 	private String body;
 	
 	private Map<String, String> headers = new HashMap<>();
 
 	public HttpResponse(InputStream inputStream) throws IOException {
-		this.inputStream = inputStream;
+		this.input = inputStream;
 		String statusLine = readLine();
 		
 		String[] parts = statusLine.toString().split(" ");
@@ -22,13 +22,18 @@ public class HttpResponse {
 		
 		String headerLine;
 		while((headerLine = readLine()) != null) {
+			System.out.println(">" + headerLine + ">");
 			if(headerLine.isEmpty()) break;
+			
 			int colonPos = headerLine.indexOf(':');
-			headers.put(headerLine.substring(0, colonPos).trim(),
-					headerLine.substring(colonPos + 1).trim());
+			String headerName = headerLine.substring(0, colonPos).trim(); 
+			String headerValue = headerLine.substring(colonPos + 1).trim();
+			
+			headers.put(headerName, headerValue);
 		
 		}
-			this.body = readLine();
+		System.out.println();
+		this.body = readLine();
 	}
 
 
@@ -38,9 +43,9 @@ public class HttpResponse {
 		
 		int character;
 		
-		while((character = inputStream.read()) != -1) {
+		while((character = input.read()) != -1) {
 			if(character == '\r') {
-				character = inputStream.read();
+				character = input.read();
 				assert character == '\n';
 				break;
 			}
@@ -58,11 +63,14 @@ public class HttpResponse {
 
 	public String getBody() throws IOException {
 
-		
 		return body;
 	}
 
 	public String getHeader(String headerName) {
 		return headers.get(headerName);
+	}
+	
+	public String getHeaderToString() {
+		return headers.toString();
 	}
 }

@@ -14,6 +14,7 @@ public class HttpClientTest {
 	
 	@Test
 	public void ShouldExecuteRequest() throws IOException {
+		System.out.println("ShouldExecuteRequest");
 		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo");
 		HttpResponse response = request.execute();
 		
@@ -23,8 +24,10 @@ public class HttpClientTest {
 	
 	@Test
 	public void ShouldReadResponseCode() throws IOException {
+		System.out.println("ShouldReadResponseCode");
+		HttpQuery query = new HttpQuery().add("status", "404");
 		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, 
-				"/echo?" + new HttpQuery().add("status", "404"));
+				"/echo?" + query);
 		HttpResponse response = request.execute();
 		
 		assertThat(response.getStatusCode())
@@ -33,6 +36,7 @@ public class HttpClientTest {
 	
 	@Test
 	public void ShouldReadBody() throws IOException {
+		System.out.println("ShouldReadBody");
 		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?"
 				+ new HttpQuery().add("body", "Hello World"));
 		HttpResponse response = request.execute();
@@ -43,6 +47,7 @@ public class HttpClientTest {
 
 	@Test
 	public void ShouldReadResponseHeader() throws IOException {
+		System.out.println("ShouldReadResponseHeader");
 		HttpQuery query = new HttpQuery()
 			.add("status", "307")
 			.add("Location", "http://www.google.com");
@@ -56,39 +61,25 @@ public class HttpClientTest {
 	
 	@Test
 	public void ShouldPostRequest() throws IOException {
-		HttpRequest request = new HttpRequest("httpbin.org", 80, "/post", "POST");
-		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		
+		System.out.println("ShouldPostRequest");
 		HttpQuery query = new HttpQuery()
+				//.add("status", "200")
 				.add("custname", "Chris M")
 				.add("custtel", "12345678")
 				.add("topping", "bacon");
-			request.setBody(query.toString());
-		
-		HttpResponse response = request.execute();
-		
-		System.out.println(response.getBody());
-	}
-	
 
-	/*
-	@Test
-	public void ShouldReadHeaders() throws Exception {
-		HttpQuery query = new HttpQuery()
-				.add("status", 307)
-				.add("location", "http://google.com");
-		http://urlecho.appspot.com/echo?status=307?&Location=http%3A%F%2Fwww.google.com
-		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?" + query);
+		
+			HttpRequest request = new HttpRequest("httpbin.org", 80, "/post", "POST");
+			request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			request.setBody(query.toString());
+			
 		HttpResponse response = request.execute();
 		
 		assertThat(response.getStatusCode()).isEqualTo(200);
-		assertThat(response.getHeader("Location")).isEqualTo("http://google.com");
 	}
-	*/
-	
-	
 
 	public static void main(String[] args) throws IOException {
+		/*
 		Socket socket = new Socket("urlecho.appspot.com", 80);
 		
 		socket.getOutputStream().write("GET /echo HTTP/1.1\r\n".getBytes());
@@ -103,6 +94,7 @@ public class HttpClientTest {
 			System.out.print((char)c);
 		}
 		socket.close();
+		*/
 	}
 	
 }
