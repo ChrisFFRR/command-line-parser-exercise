@@ -39,6 +39,8 @@ public class HttpRequest {
 		writeLine(method + " " +  path + " HTTP/1.1");
 		writeLine("Host: " + hostname);
 		writeLine("Connection: close");
+		
+		//gives nullpointerexception?
 		for(Entry<String, String> entry : headers.entrySet()){
 			writeLine(entry.getKey() + ": " + entry.getValue());
 		}
