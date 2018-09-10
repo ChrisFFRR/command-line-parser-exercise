@@ -13,28 +13,64 @@ public class HttpClientTest {
 	
 	
 	@Test
-	public void ShouldExecuteRequest() throws Exception {
+	public void ShouldExecuteRequest() throws IOException {
 		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo");
 		HttpResponse response = request.execute();
 		
-		assertThat(response.getStatusCode()).isEqualTo(200);
+		assertThat(response.getStatusCode())
+			.isEqualTo(200);
 	}
 	
 	@Test
-	public void ShouldReadResponseCode() throws Exception {
-		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?status=404");
+	public void ShouldReadResponseCode() throws IOException {
+		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, 
+				"/echo?" + new HttpQuery().add("status", "404"));
 		HttpResponse response = request.execute();
 		
-		assertThat(response.getStatusCode()).isEqualTo(404);
+		assertThat(response.getStatusCode())
+			.isEqualTo(404);
 	}
 	
 	@Test
-	public void ShouldReadBody() throws Exception {
-		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo");
+	public void ShouldReadBody() throws IOException {
+		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?"
+				+ new HttpQuery().add("body", "Hello World"));
 		HttpResponse response = request.execute();
 		
-		assertThat(response.getBody()).isEqualTo("Hello World!");
+		assertThat(response.getBody())
+		.isEqualTo("Hello World");
 	}
+
+	@Test
+	public void ShouldReadResponseHeader() throws IOException {
+		HttpQuery query = new HttpQuery()
+			.add("status", "307")
+			.add("Location", "http://www.google.com");
+		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?" + query);
+		
+		HttpResponse response = request.execute();
+		
+		assertThat(response.getStatusCode()).isEqualTo(307);
+		assertThat(response.getHeader("Location")).isEqualTo("http://www.google.com");
+	}
+	
+	@Test
+	public void ShouldPostRequest() throws IOException {
+		HttpRequest request = new HttpRequest("httpbin.org", 80, "/post", "POST");
+		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		HttpQuery query = new HttpQuery()
+				.add("custname", "Chris M")
+				.add("custtel", "12345678")
+				.add("topping", "bacon");
+			request.setBody(query.toString());
+		
+		HttpResponse response = request.execute();
+		
+		System.out.println(response.getBody());
+	}
+	
+
 	/*
 	@Test
 	public void ShouldReadHeaders() throws Exception {

@@ -2,11 +2,16 @@ package no.kristiania.prg200.http;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpResponse {
 
 	private int statusCode;
 	private InputStream inputStream;
+	private String body;
+	
+	private Map<String, String> headers = new HashMap<>();
 
 	public HttpResponse(InputStream inputStream) throws IOException {
 		this.inputStream = inputStream;
@@ -14,6 +19,16 @@ public class HttpResponse {
 		
 		String[] parts = statusLine.toString().split(" ");
 		this.statusCode = Integer.parseInt(parts[1]);
+		
+		String headerLine;
+		while((headerLine = readLine()) != null) {
+			if(headerLine.isEmpty()) break;
+			int colonPos = headerLine.indexOf(':');
+			headers.put(headerLine.substring(0, colonPos).trim(),
+					headerLine.substring(colonPos + 1).trim());
+		
+		}
+			this.body = readLine();
 	}
 
 
@@ -25,6 +40,8 @@ public class HttpResponse {
 		
 		while((character = inputStream.read()) != -1) {
 			if(character == '\r') {
+				character = inputStream.read();
+				assert character == '\n';
 				break;
 			}
 			line.append((char)character);
@@ -39,13 +56,13 @@ public class HttpResponse {
 		return statusCode;
 	}
 
-	public String getBody() {
+	public String getBody() throws IOException {
 
-		return "Hello World!";
+		
+		return body;
 	}
 
-	public String getHeader(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getHeader(String headerName) {
+		return headers.get(headerName);
 	}
 }
