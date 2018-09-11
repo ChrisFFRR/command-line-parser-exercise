@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 import java.io.IOException;
-import java.net.Socket;
 
 import org.junit.Test;
 
@@ -40,7 +39,8 @@ public class HttpClientTest {
 		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?"
 				+ new HttpQuery().add("body", "Hello World"));
 		HttpResponse response = request.execute();
-		
+		System.out.println(response.getBody());
+		System.out.println("");
 		assertThat(response.getBody())
 		.isEqualTo("Hello World");
 	}
@@ -51,6 +51,7 @@ public class HttpClientTest {
 		HttpQuery query = new HttpQuery()
 			.add("status", "307")
 			.add("Location", "http://www.google.com");
+		
 		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?" + query);
 		
 		HttpResponse response = request.execute();
@@ -59,13 +60,10 @@ public class HttpClientTest {
 		assertThat(response.getHeader("Location")).isEqualTo("http://www.google.com");
 	}
 	
-	opwepwoejwepoj
-	
 	@Test
 	public void ShouldPostRequest() throws IOException {
 		System.out.println("ShouldPostRequest");
 		HttpQuery query = new HttpQuery()
-
 				.add("custname", "Chris M")
 				.add("custtel", "12345678")
 				.add("topping", "bacon");
@@ -74,6 +72,7 @@ public class HttpClientTest {
 			HttpRequest request = new HttpRequest("httpbin.org", 80, "/post", "POST");
 			request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			request.setBody(query.toString());
+			System.out.println("Request: " + request.getBody());
 			
 		HttpResponse response = request.execute();
 		

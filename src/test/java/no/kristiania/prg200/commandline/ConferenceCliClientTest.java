@@ -55,8 +55,6 @@ public class ConferenceCliClientTest {
     //Incomplete
     @Test 
     public void shouldDecodeListCommandWithTopic() throws IOException {
-    	String title = SampleData.sampleText(5);
-    	String description = SampleData.sampleText(10);
     	String topic = SampleData.sampleTopic();
     	
     	ConferenceClientCommand command = client.decodeCommand(new String[] {

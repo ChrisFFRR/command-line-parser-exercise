@@ -36,8 +36,6 @@ public class HttpResponse {
 		this.body = readLine();
 	}
 
-
-
 	private String readLine() throws IOException {
 		StringBuilder line = new StringBuilder();
 		
@@ -54,8 +52,6 @@ public class HttpResponse {
 		
 		return line.toString();
 	}
-	
-	
 
 	public int getStatusCode() {
 		return statusCode;

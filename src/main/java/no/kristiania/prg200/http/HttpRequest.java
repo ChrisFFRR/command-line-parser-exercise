@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 public class HttpRequest {
 
-	private String hostname;
+	
 	private String path;
 	private String method;
 	private Socket socket;
@@ -20,30 +20,26 @@ public class HttpRequest {
 	
 	
 	public HttpRequest(String hostname, int port, String path) throws IOException {
-		//this(hostname, port, path, "GET");
-		this.hostname = hostname;
+		setRequestHeader("Host", hostname);
 		this.path = path;
 		this.method = "GET";
 	
-
 		socket = new Socket(hostname, port);
 		outputStream = socket.getOutputStream();
 	}
 	
 	public HttpRequest(String hostname, int port, String path, String method) throws IOException {
-		//this.hostname = hostname;
 		setRequestHeader("Host", hostname);
 		this.path = path;
 		this.method = method;
+		
 		socket = new Socket(hostname, port);
 		outputStream = socket.getOutputStream();
 	}
 
 	public HttpResponse execute() throws IOException {
 		writeLine(method + " " +  path + " HTTP/1.1");
-		setRequestHeader("Host", hostname);
 		writeLine("Connection: close");
-		
 		
 		for(Entry<String, String> entry : headers.entrySet()){
 			writeLine(entry.getKey() + ": " + entry.getValue());
@@ -68,5 +64,9 @@ public class HttpRequest {
 	public void setBody(String body) {
 		this.body = body;
 	}
-
+	
+	public String getBody() {
+		return body.toString();
+	
+	}
 }
