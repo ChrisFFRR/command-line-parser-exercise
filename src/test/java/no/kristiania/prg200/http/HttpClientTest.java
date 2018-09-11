@@ -32,25 +32,12 @@ public class HttpClientTest {
 		assertThat(response.getStatusCode())
 			.isEqualTo(404);
 	}
-	
-	@Test
-	public void ShouldReadBody() throws IOException {
-		System.out.println("ShouldReadBody");
-		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?"
-				+ new HttpQuery().add("body", "Hello World"));
-		HttpResponse response = request.execute();
-		System.out.println(response.getBody());
-		System.out.println("");
-		assertThat(response.getBody())
-		.isEqualTo("Hello World");
-	}
-
 	@Test
 	public void ShouldReadResponseHeader() throws IOException {
 		System.out.println("ShouldReadResponseHeader");
 		HttpQuery query = new HttpQuery()
-			.add("status", "307")
-			.add("Location", "http://www.google.com");
+				.add("status", "307")
+				.add("Location", "http://www.google.com");
 		
 		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?" + query);
 		
@@ -59,6 +46,20 @@ public class HttpClientTest {
 		assertThat(response.getStatusCode()).isEqualTo(307);
 		assertThat(response.getHeader("Location")).isEqualTo("http://www.google.com");
 	}
+	
+	@Test
+	public void ShouldReadBody() throws IOException {
+		System.out.println("ShouldReadBody");
+		HttpQuery query = new HttpQuery().add("body", "Hello World");
+		
+		HttpRequest request = new HttpRequest("urlecho.appspot.com", 80, "/echo?" + query);
+		HttpResponse response = request.execute();
+		System.out.println(response.getBody());
+		System.out.println(response.readRestOfInput());
+		assertThat(response.getBody())
+		.isEqualTo("Hello World");
+	}
+
 	
 	@Test
 	public void ShouldPostRequest() throws IOException {

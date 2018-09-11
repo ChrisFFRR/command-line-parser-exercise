@@ -52,6 +52,17 @@ public class HttpResponse {
 		
 		return line.toString();
 	}
+	public String readRestOfInput() throws IOException {
+		StringBuilder line = new StringBuilder();
+		
+		int character;
+		
+		while((character = input.read()) != -1) {
+			line.append((char)character);
+			
+			}
+		return line.toString();
+	}
 
 	public int getStatusCode() {
 		return statusCode;
