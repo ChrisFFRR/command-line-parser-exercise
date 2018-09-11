@@ -32,7 +32,7 @@ public class HttpRequest {
 	
 	public HttpRequest(String hostname, int port, String path, String method) throws IOException {
 		//this.hostname = hostname;
-		setRequestHeader("Host", hostname); //red on ShouldPostRequest - if writeLine with host is present
+		setRequestHeader("Host", hostname);
 		this.path = path;
 		this.method = method;
 		socket = new Socket(hostname, port);
@@ -41,7 +41,7 @@ public class HttpRequest {
 
 	public HttpResponse execute() throws IOException {
 		writeLine(method + " " +  path + " HTTP/1.1");
-		writeLine("Host: " + hostname); // red on everything beside ShouldPostRequest+ResponseCode if not present.
+		setRequestHeader("Host", hostname);
 		writeLine("Connection: close");
 		
 		

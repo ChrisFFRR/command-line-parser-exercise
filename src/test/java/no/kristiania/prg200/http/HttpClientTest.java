@@ -59,11 +59,13 @@ public class HttpClientTest {
 		assertThat(response.getHeader("Location")).isEqualTo("http://www.google.com");
 	}
 	
+	opwepwoejwepoj
+	
 	@Test
 	public void ShouldPostRequest() throws IOException {
 		System.out.println("ShouldPostRequest");
 		HttpQuery query = new HttpQuery()
-				//.add("status", "200")
+
 				.add("custname", "Chris M")
 				.add("custtel", "12345678")
 				.add("topping", "bacon");
