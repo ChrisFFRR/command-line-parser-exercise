@@ -55,6 +55,7 @@ public class HTTPEchoServer {
 				output.write(("Content-length:" + body.length() + "\r\n").getBytes());
 				output.write(("\r\n").getBytes());
 				output.write(body.getBytes()); //vil ikke printe i terminal?
+				output.flush();
 			} catch(IOException e) {
 				e.printStackTrace();
 			}		
@@ -82,7 +83,7 @@ public class HTTPEchoServer {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		
+		//start();  <- kan ikke kjøre fordi det er void og ikke statisk.
 	}
 
 }
