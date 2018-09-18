@@ -15,13 +15,13 @@ public class HttpResponse {
 
 	public HttpResponse(InputStream inputStream) throws IOException {
 		this.input = inputStream;
-		String statusLine = readLine();
+		String statusLine = readLine(input);
 		
 		String[] parts = statusLine.toString().split(" ");
 		this.statusCode = Integer.parseInt(parts[1]);
 		
 		String headerLine;
-		while((headerLine = readLine()) != null) {
+		while((headerLine = readLine(input)) != null) {
 			System.out.println(">" + headerLine + ">");
 			if(headerLine.isEmpty()) break;
 			
@@ -33,10 +33,10 @@ public class HttpResponse {
 		
 		}
 		System.out.println();
-		this.body = readLine();
+		this.body = readLine(input);
 	}
 
-	private String readLine() throws IOException {
+	public String readLine(InputStream input) throws IOException {
 		StringBuilder line = new StringBuilder();
 		
 		int character;
