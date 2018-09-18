@@ -16,7 +16,7 @@ public class HTTPEchoServer {
 	
 	public HTTPEchoServer(int port) throws IOException {
 		this.port = port;
-		start();
+		start(); //programm vil ikke funke uten?
 	}
 	
 	public void start() throws IOException {
@@ -79,6 +79,10 @@ public class HTTPEchoServer {
 	public int getPort() {
 		// TODO Auto-generated method stub
 		return actualPort;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		
 	}
 
 }

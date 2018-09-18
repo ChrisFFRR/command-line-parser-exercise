@@ -22,7 +22,7 @@ public class HttpServerTest {
 	
 	@BeforeClass
 	public static void startServer() throws IOException {
-		server = new HTTPEchoServer(0);
+		server = new HTTPEchoServer(8080);
 	}
 	
 	@Test
