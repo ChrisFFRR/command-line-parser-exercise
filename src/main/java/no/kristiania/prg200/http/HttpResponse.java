@@ -26,14 +26,29 @@ public class HttpResponse {
 			if(headerLine.isEmpty()) break;
 			
 			int colonPos = headerLine.indexOf(':');
-			String headerName = headerLine.substring(0, colonPos).trim(); 
+			String headerName = headerLine.substring(0, colonPos).trim().toLowerCase(); 
 			String headerValue = headerLine.substring(colonPos + 1).trim();
 			
 			headers.put(headerName, headerValue);
 		
 		}
 		System.out.println();
-		this.body = readLine(input);
+		this.body = readLine(input, Integer.parseInt(getHeader("Content-length")));
+	}
+
+	private String readLine(InputStream input, int contentLength) throws IOException {
+		StringBuilder line = new StringBuilder();
+		
+		int character;
+		
+		while((character = input.read()) != -1) {
+			line.append((char)character);
+			if(line.length() >= contentLength) {
+				break;
+			}
+		}
+		
+		return line.toString();
 	}
 
 	public String readLine(InputStream input) throws IOException {
@@ -74,7 +89,7 @@ public class HttpResponse {
 	}
 
 	public String getHeader(String headerName) {
-		return headers.get(headerName);
+		return headers.get(headerName.toLowerCase());
 	}
 	
 	public String getHeaderToString() {
