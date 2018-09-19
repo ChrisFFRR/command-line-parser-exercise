@@ -57,14 +57,15 @@ public class HTTPEchoServer {
 				String connection = parameters.get("Connection");
 				String contentType = parameters.get("Content-type");
 				
+				
 				output.write(("HTTP/1.1 " + statusCode + " OK\r\n").getBytes());
-				output.write(("X-Server-Name: " + serverName + "r\r\n").getBytes());
+				output.write(("X-Server-Name: " + serverName + "\r\n").getBytes());
 				output.write(("Connection: " + connection + "\r\n").getBytes());
 				output.write(("Content-Type: " + contentType + "\r\n").getBytes());
 				output.write(("Content-Length:" + body.length() + "\r\n").getBytes());
 				output.write(("location: " + location + "\r\n").getBytes());
 				output.write(("\r\n").getBytes());
-				output.write(body.getBytes()); //vil ikke printe i terminal?
+				output.write(body.getBytes()); 
 				output.flush();
 			} catch(IOException e) {
 				e.printStackTrace();
