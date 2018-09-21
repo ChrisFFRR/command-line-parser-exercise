@@ -53,8 +53,10 @@ public class HttpServerTest {
 		
 		HttpResponse response = request.execute();
 		
+		assertThat(response.getStatusCode()).isEqualTo(200);
 		assertThat(response.getBody()).isEqualTo("Hello World!");
 	}
+	
 }
 
 

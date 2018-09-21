@@ -19,10 +19,12 @@ public class HTTPEchoServer {
 		ServerSocket serverSocket = new ServerSocket(port);
 		this.actualPort = serverSocket.getLocalPort();
 		new Thread(() -> {
-			try {
-				serverThread(serverSocket);
-			} catch (IOException e) {
-				e.printStackTrace();
+			while (true) {
+				try {
+					serverThread(serverSocket);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}).start();
 	}
@@ -32,16 +34,21 @@ public class HTTPEchoServer {
 			try {
 				Socket clientSocket = serverSocket.accept(); 
 				
-				InputStream input = clientSocket.getInputStream();
+				String requestLine = readLine(clientSocket.getInputStream());
+				System.out.println(requestLine);
+				//InputStream input = clientSocket.getInputStream();
 				OutputStream output = clientSocket.getOutputStream();
 				
-				Map<String, String> parameters = getParameters(input);
-
-				String headerLine = readLine(input);
+				
+				
+				Map<String, String> parameters = getParameters(requestLine);
+/*
+				String headerLine = readLine(requestLine);
 				while(!headerLine.isEmpty()) {
-					System.out.println(headerLine);
 					headerLine = readLine(input);
-				}				
+					System.out.println(headerLine);
+				}		
+				*/		
 				
 				
 				String statusCode = parameters.get("status");
@@ -72,11 +79,10 @@ public class HTTPEchoServer {
 			}		
 		}
 	}
-
-	private Map<String, String> getParameters(InputStream input) throws IOException, UnsupportedEncodingException {
-		String line = readLine(input);
+	
+private Map<String, String> getParameters(String path) throws IOException, UnsupportedEncodingException {
 		
-		String uri = line.toString().split(" ")[1];
+		String uri = path.toString().split(" ")[1];
 
 		int questionPos = uri.indexOf('?');
 		String query = uri.substring(questionPos +1);
@@ -91,12 +97,14 @@ public class HTTPEchoServer {
 		}
 		return parameters;
 	}
+
+	
+	
 	
 	public String readLine(InputStream input) throws IOException {
 		StringBuilder line = new StringBuilder();
 		
 		int character;
-		
 		while((character = input.read()) != -1) {
 			if(character == '\r') {
 				input.read();
@@ -104,7 +112,6 @@ public class HTTPEchoServer {
 			}
 			line.append((char)character);
 		}
-		
 		return line.toString();
 	}
 	
@@ -112,9 +119,4 @@ public class HTTPEchoServer {
 		// TODO Auto-generated method stub
 		return actualPort;
 	}
-	
-	public static void main(String[] args) throws IOException {
-		//start();  <- kan ikke kjøre fordi det er void og ikke statisk.
-	}
-
 }

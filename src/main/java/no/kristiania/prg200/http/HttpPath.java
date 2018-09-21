@@ -1,5 +1,7 @@
 package no.kristiania.prg200.http;
 
+
+
 public class HttpPath {
 	
 	private String path;
@@ -18,5 +20,6 @@ public class HttpPath {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 
 }

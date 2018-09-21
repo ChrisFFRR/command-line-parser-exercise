@@ -5,12 +5,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 public class HttpPathTest {
-	
+	/*
 	@Test
 	public void shouldSeperatePathAndQuery() {
 		HttpPath path = new HttpPath("/urlecho?status=200");
 		assertThat(path.getPath()).isEqualTo("/urlecho");
-		//assertThat(path.getQuery()).isEqualTo("status=200");
+		assertThat(path.getQuery().toString()).isEqualTo("status=200");
+		assertThat(path.toString()).isEqualTo("/urlecho?status=200");
+		//assertThat(path.getQuery().getParameters("status")).isEqualTo("200");
 	}
 	
 	@Test 

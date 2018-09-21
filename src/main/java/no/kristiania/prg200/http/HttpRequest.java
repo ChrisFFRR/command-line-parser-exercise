@@ -39,7 +39,6 @@ public class HttpRequest {
 
 	public HttpResponse execute() throws IOException {
 		writeLine(method + " " +  path + " HTTP/1.1");
-		writeLine("Connection: close");
 		
 		for(Entry<String, String> entry : headers.entrySet()){
 			writeLine(entry.getKey() + ": " + entry.getValue());
@@ -57,10 +56,9 @@ public class HttpRequest {
 
 	public void setRequestHeader(String rule, String type) {
 		this.headers.put(rule, type);
-		
-		
+			
 	}
-
+	
 	public void setBody(String body) {
 		this.body = body;
 	}
